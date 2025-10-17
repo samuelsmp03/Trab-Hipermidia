@@ -21,24 +21,34 @@ def get_current_room():
     return _rooms[_current]
 
 def get_description():
-    return get_current_room().get("description", "")
+    room = get_current_room()
+    return room.get("description", "")
 
 def get_exits():
     possible_dirs = {"north", "south", "east", "west"}
     room = get_current_room()
-    return {d: room[d] for d in possible_dirs if d in room}
+    exits = {}
+    for d in possible_dirs:
+        if d in room:
+            exits[d] = room[d]
+    return exits
 
 def get_items():
-    itens = get_current_room().get("itens")
-    return itens if isinstance(itens, dict) else {}
+    room = get_current_room()
+    itens = room.get("itens")
+    if isinstance(itens, dict):
+        return dict(itens)
+    else:
+        return {}
 
 def set_items(itens: dict):
     room = get_current_room()
     room["itens"] = itens
 
-
 def is_exit():
-    return _current == _exit
+    if _current == _exit:
+        return True
+    return False
 
 def move(direction: str) -> bool:
     global _current

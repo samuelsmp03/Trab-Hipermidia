@@ -12,7 +12,6 @@ def retornaDirecaoPT(direcao:str):
         return "oeste"
     return
 
-
 #Imprimir destinos com variações   
 def imprimirDestinos(direcao:str, destino:str):
     direcao = retornaDirecaoPT(direcao)
@@ -23,7 +22,6 @@ def imprimirDestinos(direcao:str, destino:str):
         print(f"Há um caminho para {determinaArtigoEmFrases(destino)}{destino} seguindo pelo {direcao}.\n")
     else:
         print(f"Seguindo para o {direcao}, você encontrará {determinaArtigoEmFrases(destino)}{destino}.\n")
-
     return
 
 #Imprimir descrição da sala com variações
@@ -35,7 +33,6 @@ def imprimirDescricaoSala(descricao:str):
         print(f"Você observa: {descricao}")
     else:
         print(f"Um(a) sofisticado: {descricao}")
-
     return
 
 def determinaArtigoEmFrases(frase:str) -> bool:
@@ -64,8 +61,7 @@ def imprimirItens(itens:dict):
         if num_random == 1:
             print(f"Você observa um{verificaPalavraFeminina(nome_item)}{nome_item}, ao se aproximar você nota mais detalhes:{desc}")
         elif num_random == 2:
-            print(f"Um{verificaPalavraFeminina(nome_item)}{nome_item} está aqui. Detalhes: {desc}")
+            print(f"Um{verificaPalavraFeminina(nome_item)}{nome_item} está aqui. Chegando mais perto, você nota alguns detalhes: {desc}")
         else:
-            print(f"Há um{verificaPalavraFeminina(nome_item)}{nome_item} neste local. Descrição: {desc}")
-
+            print(f"Há um{verificaPalavraFeminina(nome_item)}{nome_item} neste local. Vendo com calma, você percebe que é um(a): {desc}")
     return
