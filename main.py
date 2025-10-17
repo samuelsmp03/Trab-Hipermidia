@@ -1,23 +1,21 @@
 import mapa
+import mensagens
 
 directions = {"north", "south", "east", "west"}
 
 while True:
     nome = mapa.get_current_room_name()
-    print("\nVocê está em:", nome)
-    print(f" ", mapa.get_description())
+    print(f"[{nome}]\n")
+    mensagens.imprimirDescricaoSala(mapa.get_description())
 
     exits = mapa.get_exits()
     if exits:
-        print("\nSaídas:")
         for d, r in exits.items():
-            print(f"  {d}: {r}")
+            mensagens.imprimirDestinos(d, r)
 
     itens = mapa.get_items()
     if itens:
-        print("\nItens:")
-        for nome_item, desc in itens.items():
-            print(f"  {nome_item}: {desc}")
+        mensagens.imprimirItens(itens)
 
     if mapa.is_exit():
         print("\nVocê encontrou a saída! Parabéns!")

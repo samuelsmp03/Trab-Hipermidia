@@ -11,6 +11,9 @@ _current = leitorJson.start_room
 _exit = leitorJson.exit_room
 _inventory_space = leitorJson.inventory_space
 
+def get_inventory_space():
+    return _inventory_space
+
 def get_current_room_name():
     return _current
 
@@ -28,6 +31,11 @@ def get_exits():
 def get_items():
     itens = get_current_room().get("itens")
     return itens if isinstance(itens, dict) else {}
+
+def set_items(itens: dict):
+    room = get_current_room()
+    room["itens"] = itens
+
 
 def is_exit():
     return _current == _exit
