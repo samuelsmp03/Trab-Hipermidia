@@ -1,36 +1,35 @@
-import json
-with open("file.json", "r") as f:
-   data = json.load(f)
+import mapa
 
-
-current_room = data["main"]
-exit_room = data["exit"]
-
+directions = {"north", "south", "east", "west"}
 
 while True:
-   room = data[current_room]
-   print("\nVocê está em:", current_room)
+    nome = mapa.get_current_room_name()
+    print("\nVocê está em:", nome)
+    print(f" ", mapa.get_description())
 
+    exits = mapa.get_exits()
+    if exits:
+        print("\nSaídas:")
+        for d, r in exits.items():
+            print(f"  {d}: {r}")
 
-   for key in room.keys():
-       if key == "description":
-           print(room[key])
-           continue
-       print(key +":"+room[key])
+    itens = mapa.get_items()
+    if itens:
+        print("\nItens:")
+        for nome_item, desc in itens.items():
+            print(f"  {nome_item}: {desc}")
 
+    if mapa.is_exit():
+        print("\nVocê encontrou a saída! Parabéns!")
+        break
 
-   if current_room == exit_room:
-       print("\nVocê encontrou a saída! Parabéns!")
-       break
+    move = input("\nDigite a direção (north, south, east, west) ou 'sair' para encerrar: \n> ").lower().strip()
+    if move == "sair":
+        print("Jogo encerrado.")
+        break
 
-
-   move = input("Digite a direção (north, south, east, west) ou 'sair' para encerrar: \n>").lower().strip()
-   if move == "sair":
-       print("Jogo encerrado.")
-       break
-
-
-   if move in room:
-       current_room = room[move]
-   else:
-       print("Direção inválida! Tente novamente.")
+    if move in directions:
+        if not mapa.move(move):
+            print("Direção inválida! Tente novamente.")
+    else:
+        print("Comando inválido.")
