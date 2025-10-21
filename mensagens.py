@@ -1,5 +1,5 @@
 import random
-
+from player import getInventario, getTamInv
 #Traduzir direções para português
 def retornaDirecaoPT(direcao:str):
     if direcao == "north":
@@ -55,13 +55,27 @@ def imprimirItens(itens:dict):
     if not itens:
         return
     for nome_item, desc in itens.items():
-        nome_item = nome_item.capitalize()
+        nome_item = nome_item
         desc = desc.capitalize()
         num_random = random.choice([1, 2, 3])
         if num_random == 1:
-            print(f"Você observa um{verificaPalavraFeminina(nome_item)}{nome_item}, ao se aproximar você nota mais detalhes:{desc}")
+            print(f"Você observa um{verificaPalavraFeminina(nome_item)}[{nome_item}], ao se aproximar você nota mais detalhes:{desc}")
         elif num_random == 2:
-            print(f"Um{verificaPalavraFeminina(nome_item)}{nome_item} está aqui. Chegando mais perto, você nota alguns detalhes: {desc}")
+            print(f"Um{verificaPalavraFeminina(nome_item)}[{nome_item}] está aqui. Chegando mais perto, você nota alguns detalhes: {desc}")
         else:
-            print(f"Há um{verificaPalavraFeminina(nome_item)}{nome_item} neste local. Vendo com calma, você percebe que é um(a): {desc}")
+            print(f"Há um{verificaPalavraFeminina(nome_item)}[{nome_item}] neste local. Vendo com calma, você percebe que é um(a): {desc}")
+    return
+
+def imprimirInventario():
+    inventario = getInventario()
+    tam_inv = getTamInv()
+    if tam_inv == 0:
+        print("Seu inventário está vazio.")
+        return
+    print("Itens no seu inventário:")
+    print(f"\nSeu inventário possui {tam_inv} itens")
+    for nome_item, desc in inventario.items():
+        nome_item = nome_item
+        desc = desc.capitalize()
+        print(f"- [{nome_item}]: {desc}")
     return
