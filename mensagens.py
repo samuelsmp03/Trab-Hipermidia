@@ -1,4 +1,5 @@
 import random
+import mapa
 from player import getInventario, getTamInv
 #Traduzir direções para português
 def retornaDirecaoPT(direcao:str):
@@ -45,25 +46,32 @@ def determinaArtigoEmFrases(frase:str) -> bool:
         return "a "
     return "o "
 
-def verificaPalavraFeminina(palavra:str) -> bool:
-    if palavra.endswith("a") or palavra.endswith("ã") or palavra.endswith("dade") or palavra.endswith("ção"):
+def verificaPalavraFeminina(palavra: str) -> str:
+    if not palavra:
+        return ""
+    p = palavra.lower()
+    if p.endswith(("a", "ã")) or p.endswith("dade") or p.endswith("ção"):
         return "a "
-    return
+    return "o "
     
 #Imprimir itens com variações
 def imprimirItens(itens:dict):
     if not itens:
         return
+    reserved_keys = {"use", "action"}
     for nome_item, desc in itens.items():
+        if nome_item in reserved_keys:
+            continue
         nome_item = nome_item
         desc = desc.capitalize()
         num_random = random.choice([1, 2, 3])
+        artigo = verificaPalavraFeminina(nome_item)
         if num_random == 1:
-            print(f"Você observa um{verificaPalavraFeminina(nome_item)}[{nome_item}], ao se aproximar você nota mais detalhes:{desc}")
+            print(f"Você observa um{artigo}[{nome_item}], ao se aproximar você nota mais detalhes:{desc}")
         elif num_random == 2:
-            print(f"Um{verificaPalavraFeminina(nome_item)}[{nome_item}] está aqui. Chegando mais perto, você nota alguns detalhes: {desc}")
+            print(f"Um{artigo}[{nome_item}] está aqui. Chegando mais perto, você nota alguns detalhes: {desc}")
         else:
-            print(f"Há um{verificaPalavraFeminina(nome_item)}[{nome_item}] neste local. Vendo com calma, você percebe que é um(a): {desc}")
+            print(f"Há um{artigo}[{nome_item}] neste local. Vendo com calma, você percebe que é um(a): {desc}")
     return
 
 def imprimirInventario():
@@ -79,3 +87,13 @@ def imprimirInventario():
         desc = desc.capitalize()
         print(f"- [{nome_item}]: {desc}")
     return
+
+def checarEImprimirUsos():
+    uses = mapa.get_room_uses()
+    inv = getInventario()
+    if not uses:
+        return
+    for item, info in uses.items():
+        if item in inv:
+            texto = info.get("hint")
+            return(texto)

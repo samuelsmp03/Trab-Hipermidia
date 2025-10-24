@@ -3,7 +3,7 @@ import leitorJson
 _raw = leitorJson.data
 _rooms = {}
 for name, value in _raw.items():
-    if name in {"main", "exit", "max_itens"}:
+    if name in {"main", "exit", "max_itens", "use"}:
         continue
     _rooms[name] = value
 
@@ -57,3 +57,11 @@ def move(direction: str) -> bool:
         _current = room[direction]
         return True
     return False
+
+def get_room_uses():
+    room = get_current_room()
+    uses = {}
+    for entry in room.get("use", []):
+        item = entry.get("item")
+        uses[item] = entry
+    return uses

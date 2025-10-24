@@ -8,6 +8,8 @@ def pegarItem():
         print("\nNão foi possível pegar o item :(. Verifique se ele está na sala ou se há espaço no inventário.\n")
     else:
         print(f"\nVocê pegou o item: {item_nome}!!!")
+        if (mensagens.checarEImprimirUsos() is not None):
+            print(mensagens.checarEImprimirUsos())
 
 def soltarItem():
     item_nome = input("\nDigite o nome do item que deseja soltar: ").strip()

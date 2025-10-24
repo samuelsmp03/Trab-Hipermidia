@@ -25,4 +25,3 @@ def soltarItem(nome_item: str, descricao: str) -> bool:
         del inventario[nome_item]
         return True
     return False
-    

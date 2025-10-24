@@ -9,14 +9,21 @@
       "faca": "faca ornamental sem fio"
     }
   },
-  "sala de musica": {
-    "description": "Essa é a sala de música.",
-    "south": "hall",
-    "west": "adega",
-    "itens": {
-      "partitura": "partitura musical incompleta"
-    }
+"sala de musica": {
+  "description": "Essa é a sala de música.",
+  "south": "hall",
+  "west": "adega",
+  "itens": {
+    "partitura": "partitura musical incompleta"
   },
+  "use": [
+    {
+      "item": "partitura",
+      "hint": "Você percebe um vínculo entre a partitura e o piano, na sala de música.",
+      "action": "O piano começa a tocar uma música."
+    }
+  ]
+},
   "adega": {
     "description": "Adega de vinhos!",
     "east": "sala de musica"

@@ -1,6 +1,6 @@
 import mapa
 import IO
-from mensagens import imprimirDescricaoSala, imprimirDestinos, imprimirItens,imprimirInventario
+from mensagens import imprimirDescricaoSala, imprimirDestinos, imprimirItens, imprimirInventario
 
 directions = {"north", "south", "east", "west"}
 
