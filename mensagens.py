@@ -75,7 +75,7 @@ def imprimirInventario():
         print("Seu inventário está vazio.")
         return
     print("Itens no seu inventário:")
-    print(f"\nSeu inventário possui {tam_inv} itens")
+    print(f"\nSeu inventário possui {tam_inv} itens e pode armazenar mais {mapa.get_inventory_space() - tam_inv} itens.\n")
     for nome_item, desc in inventario.items():
         nome_item = nome_item
         desc = desc.capitalize()

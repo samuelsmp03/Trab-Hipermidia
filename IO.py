@@ -20,6 +20,30 @@ def soltarItem():
     else:
         print("Item não encontrado no inventário.")
 
+def usarItem():
+    item_nome = input("\nDigite o nome do item que deseja usar: ").strip()
+    acao = player.usarItem(item_nome)
+    if(acao != None):
+        print(acao)
+    else:
+        print("Nada ocorreu.")
+
+
+def descreveSala():
+    nome_sala = mapa.get_current_room_name()
+    print(f"[{nome_sala}]\n")
+    descricao = mapa.get_description()
+    itens = mapa.get_items()
+    uses = mapa.get_room_uses()
+    mensagens.imprimirDescricaoSala(descricao)
+    if itens:
+        mensagens.imprimirItens(itens)
+
+    exits = mapa.get_exits()
+    if exits:
+        for d, r in exits.items():
+            mensagens.imprimirDestinos(d, r)
+
 def imprimirInventario():
     mensagens.imprimirInventario()
 

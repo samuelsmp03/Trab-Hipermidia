@@ -25,3 +25,12 @@ def soltarItem(nome_item: str, descricao: str) -> bool:
         del inventario[nome_item]
         return True
     return False
+
+def usarItem(nome_item: str):
+    if nome_item in inventario:
+        mapa_uses = mapa.get_room_uses()
+        if nome_item in mapa_uses:
+            acao = mapa_uses[nome_item].get("action")
+            del inventario[nome_item]
+            return acao
+    return None
