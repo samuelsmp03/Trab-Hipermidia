@@ -27,13 +27,7 @@ def imprimirDestinos(direcao:str, destino:str):
 
 #Imprimir descrição da sala com variações
 def imprimirDescricaoSala(descricao:str):
-    num_random = random.choice([1, 2, 3])
-    if num_random == 1:
-        print(f"Um(a) explêndido: {descricao}")
-    elif num_random == 2:
-        print(f"Você observa: {descricao}")
-    else:
-        print(f"Um(a) sofisticado: {descricao}")
+    print(f"{descricao}")
     return
 
 def determinaArtigoEmFrases(frase:str) -> bool:
