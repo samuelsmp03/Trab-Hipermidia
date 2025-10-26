@@ -46,26 +46,23 @@ def verificaPalavraFeminina(palavra: str) -> str:
     p = palavra.lower()
     if p.endswith(("a", "ã")) or p.endswith("dade") or p.endswith("ção"):
         return "a "
-    return "o "
+    return " "
     
 #Imprimir itens com variações
 def imprimirItens(itens:dict):
     if not itens:
         return
-    reserved_keys = {"use", "action"}
     for nome_item, desc in itens.items():
-        if nome_item in reserved_keys:
-            continue
         nome_item = nome_item
-        desc = desc.capitalize()
+        #desc = desc.capitalize()
         num_random = random.choice([1, 2, 3])
         artigo = verificaPalavraFeminina(nome_item)
         if num_random == 1:
-            print(f"Você observa um{artigo}[{nome_item}], ao se aproximar você nota mais detalhes:{desc}")
+            print(f"Você observa um{artigo}[{nome_item}], ao se aproximar, você nota mais detalhes: {desc}")
         elif num_random == 2:
             print(f"Um{artigo}[{nome_item}] está aqui. Chegando mais perto, você nota alguns detalhes: {desc}")
         else:
-            print(f"Há um{artigo}[{nome_item}] neste local. Vendo com calma, você percebe que é um(a): {desc}")
+            print(f"Há um{artigo}[{nome_item}] neste local. Vendo com calma, {desc}")
     return
 
 def imprimirInventario():

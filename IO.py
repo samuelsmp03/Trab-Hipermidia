@@ -27,7 +27,12 @@ def usarItem():
         print(acao)
     else:
         print("Nada ocorreu.")
-
+        
+    uses = mapa.get_room_uses()
+    info = uses.get(item_nome)
+    changed = mapa.apply_use_effects_for_item(item_nome)
+    if changed:
+        print("\n" + mapa.get_description())
 
 def descreveSala():
     nome_sala = mapa.get_current_room_name()
@@ -43,6 +48,8 @@ def descreveSala():
     if exits:
         for d, r in exits.items():
             mensagens.imprimirDestinos(d, r)
+            if (mensagens.checarEImprimirUsos() is not None):
+                print(mensagens.checarEImprimirUsos())
 
 def imprimirInventario():
     mensagens.imprimirInventario()

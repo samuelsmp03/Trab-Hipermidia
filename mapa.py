@@ -65,3 +65,32 @@ def get_room_uses():
         item = entry.get("item")
         uses[item] = entry
     return uses
+
+_opens_executed = set()
+
+def apply_use_effects_for_item(item: str) -> bool:
+    room_name = get_current_room_name()
+    uses = get_room_uses()
+    info = uses.get(item)
+
+    if info.get("once"):
+        key = (room_name, item)
+        if key in _opens_executed:
+            return False
+
+    changed = False
+    room = get_current_room()
+
+    adds = info.get("adds_exit")
+    for d, dest in adds.items():
+        if d not in room:
+            room[d] = dest
+            changed = True
+            
+    new_desc = info.get("newDesc")
+    room["description"] = new_desc
+
+    if changed and info.get("once"):
+        _opens_executed.add((room_name, item))
+
+    return changed

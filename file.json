@@ -7,7 +7,7 @@
     "north": "sala de musica",
     "south": "dormitorio",
     "itens": {
-      "faca": "faca ornamental sem fio"
+      "faca": "você percebe que é uma faca ornamental sem fio"
     }
   },
   "sala de musica": {
@@ -15,13 +15,18 @@
     "south": "hall",
     "west": "adega",
     "itens": {
-      "partitura": "partitura musical incompleta"
+      "partitura": "ela está incompleta, mas ainda parece útil"
     },
     "use": [
       {
         "item": "partitura",
         "hint": "Você percebe um vínculo entre a partitura e o piano, na sala de música.",
         "action": "O piano começa a tocar uma música."
+      },
+      {
+        "item": "machado",
+        "hint": "Você sente que pode destruir quase tudo com esse machado",
+        "action": "O piano foi destruído para sempre"
       }
     ]
   },
@@ -37,15 +42,8 @@
     "north": "hall",
     "south": "refeitorio",
     "itens": {
-      "machado": "um machado consideravelmente grande"
-    },
-    "use": [
-      {
-        "item": "machado",
-        "hint": "Você sente que pode destruir quase tudo com esse machado",
-        "action": "O piano foi destruído para sempre"
-      }
-    ]
+      "machado": "você percebe que é um machado consideravelmente grande"
+    }
   },
   "refeitorio": {
     "description": "Esse é o refeitório",
@@ -62,9 +60,21 @@
   },
   "comodo vazio": {
     "description": "Aparentemente, não há nada aqui",
-    "north": "biblioteca"
+    "north": "biblioteca",
+    "use": [
+      {
+        "item": "cabeca de gargula",
+        "hint": "A cabeça de gárgula te atraiu até aqui.",
+        "action": "Uma passagem secreta se abre e a cabeça é misteriosamente destruída.",
+        "adds_exit": {
+          "east": "corredor macabro"
+        },
+        "once": true,
+        "newDesc": ""
+      }
+    ]
   },
   "corredor macabro": {
-    "description": "Andar por este corredor te dá calafrios"
+    "description": "Após entrar, você percebe que não há mais volta"
   }
 }
