@@ -1,12 +1,5 @@
 import leitorJson
 
-_raw = leitorJson.data
-_rooms = {}
-for name, value in _raw.items():
-    if name in {"main", "exit", "max_itens", "use"}:
-        continue
-    _rooms[name] = value
-
 _current = leitorJson.start_room
 _exit = leitorJson.exit_room
 _inventory_space = leitorJson.inventory_space
@@ -18,14 +11,14 @@ def get_current_room_name():
     return _current
 
 def get_current_room():
-    return _rooms[_current]
+    return leitorJson.rooms[_current]
 
 def get_description():
     room = get_current_room()
     return room.get("description", "")
 
 def get_exits():
-    possible_dirs = {"north", "south", "east", "west"}
+    possible_dirs = {"north", "south", "east", "west", "up", "down"}
     room = get_current_room()
     exits = {}
     for d in possible_dirs:
@@ -73,24 +66,26 @@ def apply_use_effects_for_item(item: str) -> bool:
     uses = get_room_uses()
     info = uses.get(item)
 
-    if info.get("once"):
-        key = (room_name, item)
-        if key in _opens_executed:
-            return False
+    key = (room_name, item)
+    if key in _opens_executed:
+        return False
 
     changed = False
     room = get_current_room()
 
     adds = info.get("adds_exit")
-    for d, dest in adds.items():
-        if d not in room:
-            room[d] = dest
-            changed = True
+    if adds is not None:
+        for d, dest in adds.items():
+            if d not in room:
+                room[d] = dest
+                changed = True
             
-    new_desc = info.get("newDesc")
-    room["description"] = new_desc
+        new_desc = info.get("newDesc")
+        if new_desc is not None:
+            room["description"] = new_desc
 
-    if changed and info.get("once"):
-        _opens_executed.add((room_name, item))
+        if changed:
+            _opens_executed.add((room_name, item))
 
-    return changed
+        return changed
+    return False

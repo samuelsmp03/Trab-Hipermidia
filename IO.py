@@ -8,8 +8,8 @@ def pegarItem():
         print("\nNão foi possível pegar o item :(. Verifique se ele está na sala ou se há espaço no inventário.\n")
     else:
         print(f"\nVocê pegou o item: {item_nome}!!!")
-        if (mensagens.checarEImprimirUsos() is not None):
-            print(mensagens.checarEImprimirUsos())
+        #if (mensagens.checarEImprimirUsos() is not None):
+            #print(mensagens.checarEImprimirUsos())
 
 def soltarItem():
     item_nome = input("\nDigite o nome do item que deseja soltar: ").strip()
@@ -48,15 +48,15 @@ def descreveSala():
     if exits:
         for d, r in exits.items():
             mensagens.imprimirDestinos(d, r)
-            if (mensagens.checarEImprimirUsos() is not None):
-                print(mensagens.checarEImprimirUsos())
+            #if (mensagens.checarEImprimirUsos() is not None):
+                #print(mensagens.checarEImprimirUsos())
 
 def imprimirInventario():
     mensagens.imprimirInventario()
 
 def movimento():
-    directions = {"north", "south", "east", "west"}
-    movimento = input("\nDigite a direção (north, south, east, west): ").lower().strip()
+    directions = {"north", "south", "east", "west","down","up"}
+    movimento = input("\nDigite a direção (north, south, east, west, up, down): ").lower().strip()
     if movimento in directions:
         if not mapa.move(movimento):
             print("Direção inválida! Tente novamente.")

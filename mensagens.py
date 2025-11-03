@@ -11,6 +11,10 @@ def retornaDirecaoPT(direcao:str):
         return "leste"
     elif direcao == "west":
         return "oeste"
+    elif direcao == "up":
+        return "alto"
+    elif direcao == "down":
+        return "baixo"
     return
 
 #Imprimir destinos com variações   
@@ -27,7 +31,7 @@ def imprimirDestinos(direcao:str, destino:str):
 
 #Imprimir descrição da sala com variações
 def imprimirDescricaoSala(descricao:str):
-    print(f"{descricao}")
+    print(f"{descricao}\n")
     return
 
 def determinaArtigoEmFrases(frase:str) -> bool:
@@ -79,6 +83,7 @@ def imprimirInventario():
         print(f"- [{nome_item}]: {desc}")
     return
 
+'''
 def checarEImprimirUsos():
     uses = mapa.get_room_uses()
     inv = getInventario()
@@ -86,5 +91,6 @@ def checarEImprimirUsos():
         return
     for item, info in uses.items():
         if item in inv:
-            texto = info.get("hint")
+            texto = info.get("description")
             return(texto)
+'''

@@ -2,7 +2,7 @@ import mapa
 import IO
 from mensagens import imprimirDescricaoSala, imprimirDestinos, imprimirItens
 
-directions = {"north", "south", "east", "west"}
+directions = {"north", "south", "east", "west","up","down"}
 
 while True:
 
