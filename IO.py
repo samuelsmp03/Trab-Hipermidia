@@ -24,9 +24,7 @@ def usarItem():
     item_nome = input("\nDigite o nome do item que deseja usar: ").strip()
     acao = player.usarItem(item_nome)
     if(acao != None):
-        print(acao)
-    else:
-        print("Nada ocorreu.")
+        print('\n'+acao +'\n')
         
     uses = mapa.get_room_uses()
     info = uses.get(item_nome)
@@ -34,13 +32,38 @@ def usarItem():
     if changed:
         print("\n" + mapa.get_description())
 
+    return acao
+
+def combateMonstro(monsters):
+    nome_monster = monsters["name"]
+    desc_monster = monsters["description"]
+    mensagens.imprimirMonstro(nome_monster,desc_monster)
+    mensagem_defeat = monsters["defeat_message"]
+    inventario = player.getInventario()
+    if inventario:
+        retorno = usarItem()
+        if retorno != mensagem_defeat:
+            print("Você morreu ao tentar enfrentar o monstro!\n")
+            print("Fim de jogo.")
+            exit()
+    else:
+        print("Você morreu ao tentar enfrentar o monstro!\n")
+        print("Fim de jogo.")
+        exit()
+
 def descreveSala():
     nome_sala = mapa.get_current_room_name()
     print(f"[{nome_sala}]\n")
     descricao = mapa.get_description()
     itens = mapa.get_items()
     uses = mapa.get_room_uses()
+
     mensagens.imprimirDescricaoSala(descricao)
+    monsters = mapa.get_monsters()
+
+    if monsters:
+        combateMonstro(monsters)
+
     if itens:
         mensagens.imprimirItens(itens)
 

@@ -83,6 +83,17 @@ def imprimirInventario():
         print(f"- [{nome_item}]: {desc}")
     return
 
+def imprimirMonstro(monstro: str,desc: str):
+    num_random = random.choice([1, 2, 3])
+    if num_random == 1:
+        print(f"Cuidado! Há um monstro chamado [{monstro}] aqui!\n")
+    elif num_random == 2:
+        print(f"Um perigoso monstro conhecido como [{monstro}] está presente nesta sala!\n")
+    else:
+        print(f"Atenção! Você se depara com um monstro denominado [{monstro}]!\n")
+
+    print(desc + "\n")
+    return
 '''
 def checarEImprimirUsos():
     uses = mapa.get_room_uses()

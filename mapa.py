@@ -26,6 +26,39 @@ def get_exits():
             exits[d] = room[d]
     return exits
 
+def get_monsters():
+    room = get_current_room()
+
+    monster_obj = room.get("monster") 
+    
+    if isinstance(monster_obj, dict):
+        return monster_obj 
+    else:
+        return None
+    
+def add_monster(monster_name: str, monster_info: dict, defeat_item: str, defeat_text: str):
+    room = get_current_room()
+    new_monster = {
+        "name": monster_name,
+        "info": monster_info,
+        "defeat_item": defeat_item,
+        "defeat_text": defeat_text
+    }
+    room["monster"] = new_monster
+    print(f"Monstro '{monster_name}' adicionado à sala.")
+    return True
+
+def remove_monster(monster_name: str):
+    room = get_current_room()
+    monster_obj = room.get("monster")
+
+    if isinstance(monster_obj, dict) and monster_obj.get("name") == monster_name:
+        
+        room["monster"] = None 
+        return True
+    else:
+        return False
+
 def get_items():
     room = get_current_room()
     itens = room.get("itens")
@@ -64,28 +97,29 @@ _opens_executed = set()
 def apply_use_effects_for_item(item: str) -> bool:
     room_name = get_current_room_name()
     uses = get_room_uses()
-    info = uses.get(item)
+    if item in uses:
+        info = uses.get(item)
 
-    key = (room_name, item)
-    if key in _opens_executed:
-        return False
+        key = (room_name, item)
+        if key in _opens_executed:
+            return False
 
-    changed = False
-    room = get_current_room()
+        changed = False
+        room = get_current_room()
 
-    adds = info.get("adds_exit")
-    if adds is not None:
-        for d, dest in adds.items():
-            if d not in room:
-                room[d] = dest
-                changed = True
-            
-        new_desc = info.get("newDesc")
-        if new_desc is not None:
-            room["description"] = new_desc
+        adds = info.get("adds_exit")
+        if adds is not None:
+            for d, dest in adds.items():
+                if d not in room:
+                    room[d] = dest
+                    changed = True
+                
+            new_desc = info.get("newDesc")
+            if new_desc is not None:
+                room["description"] = new_desc
 
-        if changed:
-            _opens_executed.add((room_name, item))
+            if changed:
+                _opens_executed.add((room_name, item))
 
-        return changed
+            return changed
     return False

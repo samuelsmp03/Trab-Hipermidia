@@ -3,7 +3,6 @@ import IO
 from mensagens import imprimirDescricaoSala, imprimirDestinos, imprimirItens
 
 directions = {"north", "south", "east", "west","up","down"}
-
 while True:
 
     IO.descreveSala() # Descreve a sala atual

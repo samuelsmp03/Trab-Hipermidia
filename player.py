@@ -27,10 +27,20 @@ def soltarItem(nome_item: str, descricao: str) -> bool:
     return False
 
 def usarItem(nome_item: str):
+    monster = mapa.get_monsters()
     if nome_item in inventario:
         mapa_uses = mapa.get_room_uses()
         if nome_item in mapa_uses:
             acao = mapa_uses[nome_item].get("description")
             del inventario[nome_item]
             return acao
+        if monster:
+            defeat_item = monster.get("defeat_item")
+
+            if nome_item == defeat_item:
+                nome_monster = monster.get("name")
+                defeat_text = monster.get("defeat_message")
+                mapa.remove_monster(nome_monster)
+                del inventario[defeat_item]
+                return defeat_text
     return None
