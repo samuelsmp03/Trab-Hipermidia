@@ -44,3 +44,11 @@ def usarItem(nome_item: str):
                 del inventario[defeat_item]
                 return defeat_text
     return None
+
+def add_item(name: str, description: str) -> bool:
+    inv = getInventario()
+    max_space = mapa.get_inventory_space()
+    if (len(inv) >= max_space):
+        return False
+    inv[name] = description
+    return True

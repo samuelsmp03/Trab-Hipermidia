@@ -8,6 +8,7 @@
       "description": "Portão principal do Castelo do Corvo. Está aberto, mas o saguão a frente parece escuro.",
       "north": "saguao_principal",
       "south": "exterior",
+      "east": "corredor_leste",
       "itens": {},
       "monster": null,
       "use": []
@@ -103,7 +104,16 @@
         "elmo": "Um elmo de aço, meio amassado, sem valor de combate."
       },
       "monster": null,
-      "use": []
+      "use": [
+        {
+          "item": "escama_de_dragao",
+          "description": "Você usa a escama para fabricar uma lança." ,
+          "gives_item": {
+            "name": "lanca",
+            "description": "Uma lança afiada forjada a partir da escama do dragão."
+          } 
+        }
+      ]
     },
 
     "quarto_do_rei": {
@@ -124,14 +134,15 @@
     "escadaria_secreta": {
       "description": "Uma escadaria de pedra escura desce até um túnel no subsolo. O túnel está bloqueado por escombros.",
       "north": "sala_de_armas",
-      "down": "jardim_secreto",
       "itens": {},
       "monster": null,
       "use": [
         {
           "item": "corda_longa",
           "description": "Você amarra a corda a um pilar e desce pelo buraco, contornando os escombros.",
-          "action": "abrir nova direção"
+          "adds_exit": {
+                "down": "jardim_secreto"
+          }
         },
         {
           "item": "elmo",
@@ -145,6 +156,65 @@
       "description": "Você encontrou o Jardim Secreto, a saída do castelo! Uma luz suave te espera.",
       "up": "escadaria_secreta",
       "itens": {},
+      "monster": null,
+      "use": []
+    },
+
+    "exterior": {
+      "description": "Nada pra fazer aqui, a aventura se passa dentro do castelo.",
+      "north": "portao_principal",
+      "itens": {},
+      "monster": null,
+      "use": []
+    },
+
+    "corredor_leste": {
+      "description": "Um corredor com um alçapão ao fim.",
+      "west": "portao_principal",
+      "down": "porao",
+      "itens": {},
+      "monster": null,
+      "use": [
+        {
+          "item": "pedregulho",
+          "description": "você tampa o alçapão, impedindo que o dragão saia do porão",
+          "removes_exit": {
+            "down": "porao"
+          }
+        }
+      ]
+    },
+
+    "porao": {
+      "description": "Você cai e não consegue alcançar mais o alçapão.",
+      "north": "exposicao_secreta",
+      "itens": {
+        "pedregulho": "Um pedregulho pesado o suficiente para fechar uma saída.",
+        "escama_de_dragao": "O dragão soltou algumas escamas enquanto dormia."
+      },
+      "monster": {
+        "name": "dragao_dormente",
+        "description": "Silêncio, você sente que não é uma boa ideia acordá-lo.",
+        "defeat_item": null,
+        "defeat_message": ""
+      },
+      "use": [
+        {
+          "item": "escada_de_mao",
+          "description": "Você usa a escada para alcançar o alçapão.",
+          "adds_exit": {
+                "up": "corredor_leste"
+          }
+        }
+      ]
+    },
+
+    "exposicao_secreta": {
+      "description": "Passando pela porta do porão, você se depara com uma coleção de esquisitices.",
+      "south": "porao",
+      "itens": {
+        "escada_de_mao": "Ela pode ser usada para alcançar lugares altos."
+      },
       "monster": null,
       "use": []
     }

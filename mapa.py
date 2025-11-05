@@ -15,7 +15,11 @@ def get_current_room():
 
 def get_description():
     room = get_current_room()
-    return room.get("description", "")
+    desc = room.get("description")
+    if isinstance(desc, str):
+        return desc
+    else:
+        return ""
 
 def get_exits():
     possible_dirs = {"north", "south", "east", "west", "up", "down"}
@@ -94,32 +98,51 @@ def get_room_uses():
 
 _opens_executed = set()
 
+_opposite = {"north": "south", "south": "north", "east": "west", "west": "east", "up": "down", "down": "up"}
+
 def apply_use_effects_for_item(item: str) -> bool:
     room_name = get_current_room_name()
     uses = get_room_uses()
-    if item in uses:
-        info = uses.get(item)
+    info = uses.get(item)
+    
+    if not isinstance(info, dict):
+        return False
 
-        key = (room_name, item)
-        if key in _opens_executed:
-            return False
+    key = (room_name, item)
+    if key in _opens_executed:
+        return False
 
-        changed = False
-        room = get_current_room()
+    changed = False
+    room = get_current_room()
 
-        adds = info.get("adds_exit")
-        if adds is not None:
-            for d, dest in adds.items():
-                if d not in room:
-                    room[d] = dest
+    adds = info.get("adds_exit") or {}
+    removes = info.get("removes_exit") or {}
+
+    if isinstance(adds, dict):
+        for d, dest in adds.items():
+            if d not in room:
+                room[d] = dest
+                changed = True
+
+    if isinstance(removes, dict):
+        for d, expected_dest in removes.items():
+            if d in room:
+                actual_dest = room.get(d)
+                if expected_dest in (None, "") or expected_dest == actual_dest:
+                    del room[d]
                     changed = True
-                
-            new_desc = info.get("newDesc")
-            if new_desc is not None:
-                room["description"] = new_desc
+                    _rooms = globals().get("_rooms")
+                    if isinstance(_rooms, dict) and actual_dest in _rooms:
+                        rev = _opposite.get(d)
+                        if rev and _rooms[actual_dest].get(rev) == room_name:
+                            del _rooms[actual_dest][rev]
 
-            if changed:
-                _opens_executed.add((room_name, item))
+    new_desc = info.get("newDesc")
+    if (new_desc != room.get("description")):
+        room["description"] = new_desc
+        changed = True
 
-            return changed
-    return False
+    if changed:
+        _opens_executed.add((room_name, item))
+
+    return changed

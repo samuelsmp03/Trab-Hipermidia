@@ -3,7 +3,7 @@ import IO
 from mensagens import imprimirDescricaoSala, imprimirDestinos, imprimirItens
 
 directions = {"north", "south", "east", "west","up","down"}
-while True:
+while IO.jogando:
 
     IO.descreveSala() # Descreve a sala atual
 
