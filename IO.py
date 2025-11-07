@@ -77,14 +77,23 @@ def usarItem():
 
             if added:
                 print(f"\nVocê recebeu: {new_name}!")
+    
+    monster = info.get("adds_monster")
+    if isinstance(monster, dict):
+        monster_name = monster.get("name")
+        monster_description = monster.get("description")
+        monster_defeat_item = monster.get("defeat_item")
+        monster_defeat_message = monster.get("defeat_message")
+        mapa.add_monster(monster_name, monster_description, monster_defeat_item, monster_defeat_message)
+
 
     return acao
 
-def combateMonstro(monsters):
-    nome_monster = monsters["name"]
-    desc_monster = monsters["description"]
+def combateMonstro(monster):
+    nome_monster = monster["name"]
+    desc_monster = monster["description"]
     mensagens.imprimirMonstro(nome_monster,desc_monster)
-    mensagem_defeat = monsters["defeat_message"]
+    mensagem_defeat = monster["defeat_message"]
     inventario = player.getInventario()
     if (mensagem_defeat == ""):
         pass
@@ -110,10 +119,10 @@ def descreveSala():
     uses = mapa.get_room_uses()
 
     mensagens.imprimirDescricaoSala(descricao)
-    monsters = mapa.get_monsters()
+    monster = mapa.get_monster()
 
-    if monsters:
-        combateMonstro(monsters)
+    if monster:
+        combateMonstro(monster)
 
     if itens:
         mensagens.imprimirItens(itens)

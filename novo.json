@@ -91,9 +91,29 @@
       "down": "saguao_principal",
       "east": "quarto_do_rei",
       "west": "sala_de_armas",
+      "north": "santuario_oculto",
       "itens": {},
       "monster": null,
       "use": []
+    },
+
+    "santuario_oculto": {
+      "description": "Um pequeno santuário dedicado a uma divindade. Há um altar no centro com um buraco em formato de corvo.",
+      "south": "corredor_norte",
+      "itens": {},
+      "monster": null,
+      "use": [
+        {
+          "item": "totem_corvo",
+          "description": "Você coloca o totem no altar. Um corvo de pedra se materializa para enfrentar você.",
+          "adds_monster": {
+            "name": "corvo_de_pedra",
+            "description": "Uma estátua de corvo ganha vida, suas asas de pedra se movem ameaçadoramente!",
+            "defeat_item": "lanca",
+            "defeat_message": "Você perfura o corvo de pedra com a lança! Ele se despedaça em pequenos fragmentos de rocha."
+          }
+        }
+      ]
     },
 
     "sala_de_armas": {
@@ -163,7 +183,9 @@
     "exterior": {
       "description": "Nada pra fazer aqui, a aventura se passa dentro do castelo.",
       "north": "portao_principal",
-      "itens": {},
+      "itens": {
+        "totem_corvo": "Um totem esculpido em madeira na forma de um corvo."
+      },
       "monster": null,
       "use": []
     },

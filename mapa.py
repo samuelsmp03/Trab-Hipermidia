@@ -30,7 +30,7 @@ def get_exits():
             exits[d] = room[d]
     return exits
 
-def get_monsters():
+def get_monster():
     room = get_current_room()
 
     monster_obj = room.get("monster") 
@@ -40,16 +40,15 @@ def get_monsters():
     else:
         return None
     
-def add_monster(monster_name: str, monster_info: dict, defeat_item: str, defeat_text: str):
+def add_monster(monster_name: str, monster_description: dict, defeat_item: str, defeat_message: str):
     room = get_current_room()
     new_monster = {
         "name": monster_name,
-        "info": monster_info,
+        "description": monster_description,
         "defeat_item": defeat_item,
-        "defeat_text": defeat_text
+        "defeat_message": defeat_message
     }
     room["monster"] = new_monster
-    print(f"Monstro '{monster_name}' adicionado à sala.")
     return True
 
 def remove_monster(monster_name: str):
